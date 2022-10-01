@@ -1,10 +1,12 @@
 package com.indrabhushan.BookmarkApp.managers;
 
+import com.indrabhushan.BookmarkApp.dao.UserDao;
 import com.indrabhushan.BookmarkApp.entities.User;
 
 public class UserManager {
 	// Singleton Pattern - Class has only one instance
 	private static UserManager instance = new UserManager();
+	private static UserDao dao = new UserDao();
 
 	private UserManager() {
 	}
@@ -26,6 +28,10 @@ public class UserManager {
 
 		return user;
 
+	}
+
+	public User[] getUsers() {
+		return dao.getUsers();
 	}
 
 }

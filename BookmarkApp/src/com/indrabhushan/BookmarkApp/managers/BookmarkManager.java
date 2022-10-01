@@ -1,12 +1,17 @@
 package com.indrabhushan.BookmarkApp.managers;
 
+import com.indrabhushan.BookmarkApp.dao.BookmarkDao;
 import com.indrabhushan.BookmarkApp.entities.Book;
+import com.indrabhushan.BookmarkApp.entities.Bookmark;
 import com.indrabhushan.BookmarkApp.entities.Movie;
+import com.indrabhushan.BookmarkApp.entities.User;
+import com.indrabhushan.BookmarkApp.entities.UserBookmark;
 import com.indrabhushan.BookmarkApp.entities.WebLink;
 
 public class BookmarkManager {
 	// Singleton Pattern - Class has only one instance
 	private static BookmarkManager instance = new BookmarkManager();
+	private static BookmarkDao dao = new BookmarkDao();
 
 	private BookmarkManager() {
 	}
@@ -52,5 +57,18 @@ public class BookmarkManager {
 
 		return weblink;
 
+	}
+
+	public Bookmark[][] getbookmarks() {
+		return dao.getBookmarks();
+	}
+
+	public void saveUserBookmark(User user, Bookmark bookmark) {
+		UserBookmark userBookmark = new UserBookmark();
+		userBookmark.setUser(user);
+		userBookmark.setBookmark(bookmark);
+		
+		dao.saveUserBookmark(userBookmark);
+		
 	}
 }
