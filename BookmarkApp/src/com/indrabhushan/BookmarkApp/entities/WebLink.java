@@ -1,7 +1,5 @@
 package com.indrabhushan.BookmarkApp.entities;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.indrabhushan.BookmarkApp.partner.Shareable;
 
 public class WebLink extends Bookmark implements Shareable {

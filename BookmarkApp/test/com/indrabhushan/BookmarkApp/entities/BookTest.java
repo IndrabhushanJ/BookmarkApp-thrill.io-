@@ -12,14 +12,14 @@ class BookTest {
 	@Test
 	void testIsKidFriendlyEligible() {
 		// Test 1: For Philosophy genre
-		Book book = BookmarkManager.getinstance().createBook(4000, "Walden", 1854, "Wilder Publications",
+		Book book = BookmarkManager.getInstance().createBook(4000, "Walden", 1854, "Wilder Publications",
 				new String[] { "Henry David Thoreau" }, BookGenre.PHILOSOPHY, 4.3);
 		boolean isKidFriendlyEligible = book.isKidFriendlyEligible();
 
 		assertFalse(isKidFriendlyEligible, "For Philosophy genre, isKidFriendlyEligible must return false");
 
 		// Test 1: For Self Help genre
-		BookmarkManager.getinstance().createBook(4000, "Walden", 1854, "Wilder Publications",
+		BookmarkManager.getInstance().createBook(4000, "Walden", 1854, "Wilder Publications",
 				new String[] { "Henry David Thoreau" }, BookGenre.SELF_HELP, 4.3);
 		isKidFriendlyEligible = book.isKidFriendlyEligible();
 

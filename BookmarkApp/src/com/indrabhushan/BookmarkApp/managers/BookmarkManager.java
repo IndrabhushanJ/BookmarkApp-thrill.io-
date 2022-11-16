@@ -16,7 +16,7 @@ public class BookmarkManager {
 	private BookmarkManager() {
 	}
 
-	public static BookmarkManager getinstance() {
+	public static BookmarkManager getInstance() {
 		return instance;
 	}
 

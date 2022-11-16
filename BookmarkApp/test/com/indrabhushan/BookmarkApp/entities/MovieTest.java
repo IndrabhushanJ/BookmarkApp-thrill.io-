@@ -12,7 +12,7 @@ class MovieTest {
 	@Test
 	void testIsKidFriendlyEligible() {
 		// Test 1: Horror in genre -- false
-		Movie movie = BookmarkManager.getinstance().createMovie(3000, "Citizen Kane", 1941,
+		Movie movie = BookmarkManager.getInstance().createMovie(3000, "Citizen Kane", 1941,
 				new String[] { "Orson Welles,Joseph Cotten" }, new String[] { "Orson Welles" }, MovieGenre.HORROR, 8.5);
 
 		boolean isKidFriendlyEligible = movie.isKidFriendlyEligible();
@@ -20,7 +20,7 @@ class MovieTest {
 		assertFalse(isKidFriendlyEligible, "Horror in genre, isKidFriendlyEligible must return false");
 
 		// Test 2: Thriller in genre -- false
-		movie = BookmarkManager.getinstance().createMovie(3000, "Citizen Kane", 1941,
+		movie = BookmarkManager.getInstance().createMovie(3000, "Citizen Kane", 1941,
 				new String[] { "Orson Welles,Joseph Cotten" }, new String[] { "Orson Welles" }, MovieGenre.THRILLERS,
 				8.5);
 

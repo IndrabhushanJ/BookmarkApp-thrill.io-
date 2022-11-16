@@ -15,17 +15,17 @@ public class BookmarkController {
 	}
 
 	public void saveUserBookmark(User user, Bookmark bookmark) {
-		BookmarkManager.getinstance().saveUserBookmark(user, bookmark);
+		BookmarkManager.getInstance().saveUserBookmark(user, bookmark);
 
 	}
 
 	public void setKidFriendlyStatus(User user, String kidFriendlyStatus, Bookmark bookmark) {
-		BookmarkManager.getinstance().setKidFriendlyStatus(user,kidFriendlyStatus,bookmark);
-		
+		BookmarkManager.getInstance().setKidFriendlyStatus(user, kidFriendlyStatus, bookmark);
+
 	}
 
 	public void share(User user, Bookmark bookmark) {
-		BookmarkManager.getinstance().share(user, bookmark);
-		
+		BookmarkManager.getInstance().share(user, bookmark);
+
 	}
 }

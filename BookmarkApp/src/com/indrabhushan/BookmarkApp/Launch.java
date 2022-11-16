@@ -15,7 +15,7 @@ public class Launch {
 
 		System.out.println("2. Fetching Data...");
 		users = UserManager.getInstance().getUsers();
-		bookmarks = BookmarkManager.getinstance().getbookmarks();
+		bookmarks = BookmarkManager.getInstance().getbookmarks();
 
 //		System.out.println("Printig Data...");
 //		printUserData();
