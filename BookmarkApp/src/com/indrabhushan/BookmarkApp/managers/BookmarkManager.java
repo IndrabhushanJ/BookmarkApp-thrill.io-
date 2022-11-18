@@ -1,5 +1,8 @@
 package com.indrabhushan.BookmarkApp.managers;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+
 import com.indrabhushan.BookmarkApp.dao.BookmarkDao;
 import com.indrabhushan.BookmarkApp.entities.Book;
 import com.indrabhushan.BookmarkApp.entities.Bookmark;
@@ -7,6 +10,8 @@ import com.indrabhushan.BookmarkApp.entities.Movie;
 import com.indrabhushan.BookmarkApp.entities.User;
 import com.indrabhushan.BookmarkApp.entities.UserBookmark;
 import com.indrabhushan.BookmarkApp.entities.WebLink;
+import com.indrabhushan.BookmarkApp.util.HttpConnect;
+import com.indrabhushan.BookmarkApp.util.IOUtil;
 
 public class BookmarkManager {
 	// Singleton Pattern - Class has only one instance
@@ -67,6 +72,24 @@ public class BookmarkManager {
 		UserBookmark userBookmark = new UserBookmark();
 		userBookmark.setUser(user);
 		userBookmark.setBookmark(bookmark);
+
+		if (bookmark instanceof WebLink) {
+			try {
+				String url = ((WebLink) bookmark).getUrl();
+				if (!url.endsWith(".pdf")) {
+					String webpage = HttpConnect.download(((WebLink) bookmark).getUrl());
+					if (webpage != null) {
+						IOUtil.write(webpage, bookmark.getId());
+					}
+				}
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		dao.saveUserBookmark(userBookmark);
 
