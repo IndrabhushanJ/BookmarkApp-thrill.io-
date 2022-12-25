@@ -1,9 +1,9 @@
 package com.indrabhushan.BookmarkApp;
 
-import com.indrabhushan.BookmarkApp.constants.BookGenre;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.indrabhushan.BookmarkApp.constants.Gender;
-import com.indrabhushan.BookmarkApp.constants.MovieGenre;
-import com.indrabhushan.BookmarkApp.constants.UserType;
 import com.indrabhushan.BookmarkApp.entities.Bookmark;
 import com.indrabhushan.BookmarkApp.entities.User;
 import com.indrabhushan.BookmarkApp.entities.UserBookmark;
@@ -12,25 +12,21 @@ import com.indrabhushan.BookmarkApp.managers.UserManager;
 import com.indrabhushan.BookmarkApp.util.IOUtil;
 
 public class DataStore {
-	public static final int USER_BOOKMARK_LIMIT = 5;
-	public static final int BOOKMARK_COUNT_PER_TYPE = 5;
-	public static final int BOOKMARK_TYPE_COUNT = 3;
-	public static final int TOTAL_USER_COUNT = 5;
 
-	private static User[] users = new User[TOTAL_USER_COUNT];
+	private static List<User> users = new ArrayList<>();
 
-	public static User[] getUsers() {
+	public static List<User> getUsers() {
 		return users;
 	}
 
-	private static Bookmark[][] bookmarks = new Bookmark[BOOKMARK_TYPE_COUNT][BOOKMARK_COUNT_PER_TYPE];
+	private static List<List<Bookmark>> bookmarks = new ArrayList<>();
 
-	public static Bookmark[][] getBookmarks() {
+	public static List<List<Bookmark>> getBookmarks() {
 		return bookmarks;
 	}
 
-	private static UserBookmark[] userBookmarks = new UserBookmark[TOTAL_USER_COUNT * USER_BOOKMARK_LIMIT];
-	private static int bookmarkIndex;
+	private static List<UserBookmark> userBookmarks = new ArrayList<>();
+//	private static int bookmarkIndex;
 
 	public static void loadData() {
 		loadUsers();
@@ -63,15 +59,20 @@ public class DataStore {
 		 * "http://tomcat.apache.org/tomcat-6.0-doc/virtual-hosting-howto.html",
 		 * "http://tomcat.apache.org");
 		 */
-		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+//		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+		List<String> data = new ArrayList<>();
 		IOUtil.read(data, "WebLink");
-		int rowNum = 0;
+
+		List<Bookmark> bookmarkList = new ArrayList<>();
 		for (String row : data) {
 			String[] values = row.split("\t");
 
-			bookmarks[0][rowNum++] = BookmarkManager.getInstance().createWebLink(Long.parseLong(values[0]), values[1],
+			Bookmark bookmark = BookmarkManager.getInstance().createWebLink(Long.parseLong(values[0]), values[1],
 					values[2], values[3]);
+			bookmarkList.add(bookmark);
+
 		}
+		bookmarks.add(bookmarkList);
 	}
 
 	private static void loadMovies() {
@@ -92,18 +93,21 @@ public class DataStore {
 		 * "Takashi Shimura,Minoru Chiaki" }, new String[] { "Akira Kurosawa" },
 		 * MovieGenre.FOREIGN_MOVIES, 8.4);
 		 */
-		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+//		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+		List<String> data = new ArrayList<>();
 		IOUtil.read(data, "Movie");
-		int colNum = 0;
+
+		List<Bookmark> bookmarkList = new ArrayList<>();
 		for (String row : data) {
 			String[] values = row.split("\t");
 			String[] cast = values[3].split(",");
 			String[] directors = values[4].split(",");
-			bookmarks[1][colNum++] = BookmarkManager.getInstance().createMovie(Long.parseLong(values[0]), values[1],
+			Bookmark bookmark = BookmarkManager.getInstance().createMovie(Long.parseLong(values[0]), values[1],
 					Integer.parseInt(values[2]), cast, directors, values[5],
 					Double.parseDouble(values[6])/* , values[7] */);
+			bookmarkList.add(bookmark);
 		}
-
+		bookmarks.add(bookmarkList);
 	}
 
 	private static void loadBooks() {
@@ -126,17 +130,18 @@ public class DataStore {
 		 * String[] { "Joshua Bloch" }, BookGenre.TECHNICAL, 4.9);
 		 */
 
-		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
+		List<String> data = new ArrayList<>();
 		IOUtil.read(data, "Book");
-		int colNum = 0;
+		List<Bookmark> bookmarkList = new ArrayList<>();
 		for (String row : data) {
 			String[] values = row.split("\t");
 			String[] authors = values[4].split(",");
-			bookmarks[2][colNum++] = BookmarkManager.getInstance().createBook(Long.parseLong(values[0]), values[1],
+			Bookmark boookmark = BookmarkManager.getInstance().createBook(Long.parseLong(values[0]), values[1],
 					Integer.parseInt(values[2]), values[3], authors, values[5],
 					Double.parseDouble(values[6])/* , values[7] */);
+			bookmarkList.add(boookmark);
 		}
-
+		bookmarks.add(bookmarkList);
 	}
 
 	private static void loadUsers() {
@@ -154,9 +159,10 @@ public class DataStore {
 		 * UserType.CHIEF_EDITOR);
 		 */
 
-		String[] data = new String[TOTAL_USER_COUNT];
+//		String[] data = new String[TOTAL_USER_COUNT];
+		List<String> data = new ArrayList<>();
 		IOUtil.read(data, "User");
-		int rowNum = 0;
+
 		for (String row : data) {
 			String[] values = row.split("\t");
 
@@ -166,13 +172,15 @@ public class DataStore {
 			} else if (values[5].equals("t")) {
 				gender = Gender.TRANGENDER;
 			}
-			users[rowNum++] = UserManager.getInstance().createUser(Long.parseLong(values[0]), values[1], values[2],
-					values[3], values[4], gender, values[6]);
+			User user = UserManager.getInstance().createUser(Long.parseLong(values[0]), values[1], values[2], values[3],
+					values[4], gender, values[6]);
+
+			users.add(user);
 		}
 	}
 
 	public static void add(UserBookmark userBookmark) {
-		userBookmarks[bookmarkIndex] = userBookmark;
-		bookmarkIndex++;
+		userBookmarks.add(userBookmark);
+
 	}
 }

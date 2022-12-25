@@ -1,5 +1,7 @@
 package com.indrabhushan.BookmarkApp.managers;
 
+import java.util.List;
+
 import com.indrabhushan.BookmarkApp.dao.UserDao;
 import com.indrabhushan.BookmarkApp.entities.User;
 
@@ -30,7 +32,7 @@ public class UserManager {
 
 	}
 
-	public User[] getUsers() {
+	public List<User> getUsers() {
 		return dao.getUsers();
 	}
 

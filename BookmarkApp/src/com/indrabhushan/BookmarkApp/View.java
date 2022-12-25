@@ -1,5 +1,7 @@
 package com.indrabhushan.BookmarkApp;
 
+import java.util.List;
+
 import com.indrabhushan.BookmarkApp.constants.KidFriendlyStatus;
 import com.indrabhushan.BookmarkApp.constants.UserType;
 import com.indrabhushan.BookmarkApp.controllers.BookmarkController;
@@ -9,24 +11,24 @@ import com.indrabhushan.BookmarkApp.partner.Shareable;
 
 public class View {
 
-	public static void browse(User user, Bookmark[][] bookmarks) {
+	public static void browse(User user, List<List<Bookmark>> bookmarks) {
 		System.out.println("\n" + user.getEmail() + " is browsing items...");
 		int bookmarkCount = 0;
-		for (Bookmark[] bookmarkType : bookmarks) {
+		for (List<Bookmark> bookmarkType : bookmarks) {
 			for (Bookmark bookmark : bookmarkType) {
 				// Bookmarking
-				if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
-					boolean isBookmarked = getBookmarkDecision(bookmark);
+//				if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
+				boolean isBookmarked = getBookmarkDecision(bookmark);
 
-					if (isBookmarked) {
-						bookmarkCount++;
+				if (isBookmarked) {
+					bookmarkCount++;
 
-						BookmarkController.getInstance().saveUserBookmark(user, bookmark);
+					BookmarkController.getInstance().saveUserBookmark(user, bookmark);
 
-						System.out.println("New Item Bookmarked --" + bookmark);
+					System.out.println("New Item Bookmarked --" + bookmark);
 
-					}
 				}
+//				}
 
 				if (user.getUserType().equals(UserType.EDITOR) || user.getUserType().equals(UserType.CHIEF_EDITOR)) {
 
@@ -35,18 +37,19 @@ public class View {
 							&& bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN)) {
 						String kidFriendlyStatus = getKidFriendlyStatusDecision();
 						if (!kidFriendlyStatus.equals(KidFriendlyStatus.UNKNOWN)) {
-							BookmarkController.getInstance().setKidFriendlyStatus(user,kidFriendlyStatus, bookmark);
+							BookmarkController.getInstance().setKidFriendlyStatus(user, kidFriendlyStatus, bookmark);
 
 						}
 					}
-					
-					//Sharing
-					if(bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN) && bookmark instanceof Shareable) {
+
+					// Sharing
+					if (bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN)
+							&& bookmark instanceof Shareable) {
 						boolean isShared = getShareDecision();
-						if(isShared) {
+						if (isShared) {
 							BookmarkController.getInstance().share(user, bookmark);
 						}
-						
+
 					}
 				}
 			}
@@ -54,10 +57,11 @@ public class View {
 
 	}
 
-	// TODO: Below methods simulates user input. After IO, we take input via Console.
+	// TODO: Below methods simulates user input. After IO, we take input via
+	// Console.
 	private static boolean getShareDecision() {
 		return Math.random() < 0.5 ? true : false;
-		
+
 	}
 
 	private static String getKidFriendlyStatusDecision() {

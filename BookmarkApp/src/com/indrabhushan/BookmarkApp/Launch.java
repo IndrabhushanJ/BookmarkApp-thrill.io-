@@ -1,13 +1,15 @@
 package com.indrabhushan.BookmarkApp;
 
+import java.util.List;
+
 import com.indrabhushan.BookmarkApp.entities.Bookmark;
 import com.indrabhushan.BookmarkApp.entities.User;
 import com.indrabhushan.BookmarkApp.managers.BookmarkManager;
 import com.indrabhushan.BookmarkApp.managers.UserManager;
 
 public class Launch {
-	private static User[] users;
-	private static Bookmark[][] bookmarks;
+	private static List<User> users;
+	private static List<List<Bookmark>> bookmarks;
 
 	private static void loadData() {
 		System.out.println("1. Loading Data...");
@@ -23,7 +25,7 @@ public class Launch {
 	}
 
 	private static void printBookmarkData() {
-		for (Bookmark[] bookmarksType : bookmarks) {
+		for (List<Bookmark> bookmarksType : bookmarks) {
 			for (Bookmark bookmark : bookmarksType) {
 				System.out.println(bookmark);
 			}
