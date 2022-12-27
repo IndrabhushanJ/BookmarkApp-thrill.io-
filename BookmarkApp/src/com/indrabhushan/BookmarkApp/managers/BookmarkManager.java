@@ -4,6 +4,9 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import com.indrabhushan.BookmarkApp.constants.BookGenre;
+import com.indrabhushan.BookmarkApp.constants.KidFriendlyStatus;
+import com.indrabhushan.BookmarkApp.constants.MovieGenre;
 import com.indrabhushan.BookmarkApp.dao.BookmarkDao;
 import com.indrabhushan.BookmarkApp.entities.Book;
 import com.indrabhushan.BookmarkApp.entities.Bookmark;
@@ -26,7 +29,7 @@ public class BookmarkManager {
 		return instance;
 	}
 
-	public Movie createMovie(long id, String title, int releaseYear, String[] cast, String[] directors, String genre,
+	public Movie createMovie(long id, String title, int releaseYear, String[] cast, String[] directors, MovieGenre genre,
 			double imdbRating) {
 		Movie movie = new Movie();
 		movie.setId(id);
@@ -40,8 +43,8 @@ public class BookmarkManager {
 		return movie;
 	}
 
-	public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors, String genre,
-			double amazonRating) {
+	public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors,
+			BookGenre genre, double amazonRating) {
 		Book book = new Book();
 		book.setId(id);
 		book.setTitle(title);
@@ -84,10 +87,10 @@ public class BookmarkManager {
 					}
 				}
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 		}
@@ -96,7 +99,7 @@ public class BookmarkManager {
 
 	}
 
-	public void setKidFriendlyStatus(User user, String kidFriendlyStatus, Bookmark bookmark) {
+	public void setKidFriendlyStatus(User user, KidFriendlyStatus kidFriendlyStatus, Bookmark bookmark) {
 		bookmark.setKidFriendlyStatus(kidFriendlyStatus);
 		bookmark.setKidFriendlyMarkedBy(user);
 

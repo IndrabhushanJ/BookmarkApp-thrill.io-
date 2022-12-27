@@ -1,10 +1,16 @@
 package com.indrabhushan.BookmarkApp.constants;
 
-public class Gender {
-	private Gender() {
+public enum Gender {
+
+	MALE(0), FEMALE(1), TRANGENDER(2);
+
+	private Gender(int value) {
+		this.value = value;
 	}
 
-	public static final int MALE = 0;
-	public static final int FEMALE = 1;
-	public static final int TRANGENDER = 2;
+	private int value;
+
+	public int getValue() {
+		return value;
+	}
 }

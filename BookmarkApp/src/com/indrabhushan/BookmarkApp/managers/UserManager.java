@@ -2,6 +2,8 @@ package com.indrabhushan.BookmarkApp.managers;
 
 import java.util.List;
 
+import com.indrabhushan.BookmarkApp.constants.Gender;
+import com.indrabhushan.BookmarkApp.constants.UserType;
 import com.indrabhushan.BookmarkApp.dao.UserDao;
 import com.indrabhushan.BookmarkApp.entities.User;
 
@@ -17,8 +19,8 @@ public class UserManager {
 		return instance;
 	}
 
-	public User createUser(long id, String email, String password, String firstName, String lastName, int gender,
-			String userType) {
+	public User createUser(long id, String email, String password, String firstName, String lastName, Gender gender,
+			UserType userType) {
 		User user = new User();
 		user.setId(id);
 		user.setEmail(email);
