@@ -2,6 +2,7 @@ package com.indrabhushan.BookmarkApp;
 
 import java.util.List;
 
+import com.indrabhushan.BookmarkApp.bgjobs.WebPageDownloaderTask;
 import com.indrabhushan.BookmarkApp.entities.Bookmark;
 import com.indrabhushan.BookmarkApp.entities.User;
 import com.indrabhushan.BookmarkApp.managers.BookmarkManager;
@@ -51,7 +52,13 @@ public class Launch {
 	public static void main(String[] args) {
 		loadData();
 		start();
+		runDownloaderJob();
 
+	}
+
+	private static void runDownloaderJob() {
+		WebPageDownloaderTask task = new WebPageDownloaderTask(true);
+		(new Thread(task)).start();
 	}
 
 }
