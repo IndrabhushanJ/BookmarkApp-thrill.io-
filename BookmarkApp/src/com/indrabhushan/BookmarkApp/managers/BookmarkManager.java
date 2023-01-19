@@ -2,6 +2,7 @@ package com.indrabhushan.BookmarkApp.managers;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.indrabhushan.BookmarkApp.constants.BookGenre;
@@ -29,8 +30,8 @@ public class BookmarkManager {
 		return instance;
 	}
 
-	public Movie createMovie(long id, String title, int releaseYear, String[] cast, String[] directors, MovieGenre genre,
-			double imdbRating) {
+	public Movie createMovie(long id, String title, int releaseYear, String[] cast, String[] directors,
+			MovieGenre genre, double imdbRating) {
 		Movie movie = new Movie();
 		movie.setId(id);
 		movie.setTitle(title);
@@ -97,6 +98,8 @@ public class BookmarkManager {
 		bookmark.setKidFriendlyStatus(kidFriendlyStatus);
 		bookmark.setKidFriendlyMarkedBy(user);
 
+		dao.updateKidFriendlyStatus(bookmark);
+
 		System.out.println(
 				"Kid-friendly Status: " + kidFriendlyStatus + ", marked by: " + user.getEmail() + ", " + bookmark);
 
@@ -109,6 +112,9 @@ public class BookmarkManager {
 			System.out.println(((Book) bookmark).getItemData());
 		} else if (bookmark instanceof WebLink) {
 			System.out.println(((WebLink) bookmark).getItemData());
+
 		}
+			dao.sharedByInfo(bookmark);
 	}
+
 }
